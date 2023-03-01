@@ -1,0 +1,2 @@
+Гра за модифікованого хамелеона, який  хоче вирватися з підземної лабораторії. Оскільки гра в жанрі стелс, треба буде ховатися від персоналу і камер. Буде присутній мінімальний діалог.
+Референси: стелс, подібний в stealth inc https://www.youtube.com/watch?v=rmhlvDwOHFI&ab_channel=%D0%98%D0%B3%D1%80%D0%BE%D0%BC%D0%B0%D0%BD%D0%B8%D1%8F і переміщення з допомогою язика, подібно Rain World: Downpour https://www.youtube.com/watch?v=bDDUnWnjdK0&ab_channel=AkuparaGames
