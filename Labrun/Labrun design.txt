@@ -1,0 +1,65 @@
+Labrun
+
+Player
+-DetectionLevel
+-Speed
+-PlayerMovement()
+-* DoorOpen
+-* PlayerDeath
+-* StartDialog
+
+EnemyType
+{
+	PatrolType,
+	TrapType,
+	SeekingType,
+}
+
+PatrolType
+{
+	Robot,
+	Flying Robot,
+	Personnel,
+}
+
+TrapType
+{
+	Spike,
+	Laser,
+}
+
+SeekingType
+{
+	Camera,
+	Detectors,
+}
+
+Enemy
+--RunBehavior()
+
+LevelController
+-Timer
+-* StartLevel
+-* EndLevel
+-*- OnTimerEnd
+-*- OnDoorOpen
+-*- OnPlayerDetection
+-*- OnPlayerDeath
+
+DialogCharacter
+{
+	Player,
+	Something,
+}
+
+PhraseData
+- Who - DialogCharacter
+- Phrase - string
+
+DialogData
+- List<PhraseData> Phrases;
+- string name
+
+DialogSystem
+--StartDialog(DialogData)
+
