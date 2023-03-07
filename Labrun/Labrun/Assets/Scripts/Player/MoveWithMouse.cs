@@ -7,10 +7,12 @@ public class MoveWithMouse : MonoBehaviour
     [SerializeField] private SpringJoint2D _spring;
     [SerializeField] private Rigidbody2D _tongue;
     [SerializeField] private float _tongueForce;
+    [SerializeField] private float _tongueCatchDistance;
     private Camera _cam;
     private bool _hanging;
     private Vector3 _mousePositionWorld;
-    private bool _throwTongue;
+    private bool _leftMouseButtonClicked;
+    private bool _tongueReady = true;
     private void Start()
     {
         _cam = Camera.main;
@@ -18,6 +20,7 @@ public class MoveWithMouse : MonoBehaviour
     private void Update()
     {
         GetInput();
+        HandleTongue();
     }
     private void FixedUpdate()
     {
@@ -25,21 +28,29 @@ public class MoveWithMouse : MonoBehaviour
     }
     private void MoveTongue()
     {
-        if(_throwTongue)
+        if (_leftMouseButtonClicked)
         {
             _mousePositionWorld = _cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _cam.nearClipPlane));
             Vector2 _tongueDirection = new Vector2(_mousePositionWorld.x - transform.position.x, _mousePositionWorld.y - transform.position.y).normalized;
             _tongue.AddForce(_tongueDirection * _tongueForce, ForceMode2D.Impulse);
-            Debug.Log((_mousePositionWorld - transform.position).normalized);
-            _throwTongue = false;
+            _leftMouseButtonClicked = false;
         }
     }
     private void GetInput()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            _throwTongue = true;
+            if (Vector2.Distance(transform.position, _tongue.position) < _tongueCatchDistance)
+            {
+                _tongueReady = true;
+            }
+            if (_tongueReady)
+            {
+                _leftMouseButtonClicked = true;
+                _tongueReady = false;
+            }
         }
+
         //_mousePositionWorld = _cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _cam.nearClipPlane));  
         //if (Input.GetMouseButtonDown(0) && !_hanging)
         //{
@@ -53,6 +64,17 @@ public class MoveWithMouse : MonoBehaviour
         //{
         //    StopClimbing();
         //}
+    }
+    private void HandleTongue()
+    {
+        if(!_tongueReady)
+        {
+            if (Vector2.Distance(transform.position, _tongue.position) < _tongueCatchDistance)
+            {
+                _tongue.velocity = Vector2.zero;
+                _tongue.inertia = 0f;
+            }
+        }
     }
 
 
@@ -78,8 +100,4 @@ public class MoveWithMouse : MonoBehaviour
         _hanging = false;
         _spring.enabled = false;
     }
-    //private void CheckRay()
-    //{
-
-    //}
 }
