@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,17 +11,22 @@ public class MoveWithMouse : MonoBehaviour
     [SerializeField] private float _tongueCatchDistance;
     private Camera _cam;
     private bool _hanging;
+    private bool _tongueActive;
     private Vector3 _mousePositionWorld;
     private bool _leftMouseButtonClicked;
     private bool _tongueReady = true;
+
+    
+
     private void Start()
     {
+        _tongue.gameObject.SetActive(true);
         _cam = Camera.main;
     }
     private void Update()
     {
         GetInput();
-        HandleTongue();
+        CatchTongue();
     }
     private void FixedUpdate()
     {
@@ -28,26 +34,31 @@ public class MoveWithMouse : MonoBehaviour
     }
     private void MoveTongue()
     {
-        if (_leftMouseButtonClicked)
+        if (_leftMouseButtonClicked && !_tongueActive)
         {
             _mousePositionWorld = _cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _cam.nearClipPlane));
             Vector2 _tongueDirection = new Vector2(_mousePositionWorld.x - transform.position.x, _mousePositionWorld.y - transform.position.y).normalized;
             _tongue.AddForce(_tongueDirection * _tongueForce, ForceMode2D.Impulse);
             _leftMouseButtonClicked = false;
+            _tongueActive = true;
         }
     }
     private void GetInput()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            //if (Vector2.Distance(transform.position, _tongue.position) < _tongueCatchDistance)
+            //{
+            //    _tongueReady = true;
+            //}
+            //if (_tongueReady)
+            //{
+            //    _leftMouseButtonClicked = true;
+            //    _tongueReady = false;
+            //}
             if (Vector2.Distance(transform.position, _tongue.position) < _tongueCatchDistance)
             {
-                _tongueReady = true;
-            }
-            if (_tongueReady)
-            {
                 _leftMouseButtonClicked = true;
-                _tongueReady = false;
             }
         }
 
@@ -65,14 +76,16 @@ public class MoveWithMouse : MonoBehaviour
         //    StopClimbing();
         //}
     }
-    private void HandleTongue()
+    private void CatchTongue()
     {
-        if(!_tongueReady)
+        if(_tongueActive)
         {
             if (Vector2.Distance(transform.position, _tongue.position) < _tongueCatchDistance)
             {
                 _tongue.velocity = Vector2.zero;
                 _tongue.inertia = 0f;
+                _tongue.transform.localPosition = Vector2.zero;
+                _tongueActive = false;
             }
         }
     }
