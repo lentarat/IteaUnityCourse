@@ -5,48 +5,57 @@ using System;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private delegate void _stringDel(string who);
-    private static event _stringDel hiDel = null, byeDel = null, sumDel = null;
-    private void Hello(string s)
-    {
-        Debug.Log($"Hello{s}");
-    }
-    private void Bye(string s)
-    {
-       Debug.Log($"Bye{s}");
-    }
+    [SerializeField] private Rigidbody2D _rigidbody;
+    [SerializeField] private float _walkSpeed;
+    [SerializeField] private float _runSpeed;
+    [SerializeField] private float _jumpForce;
+    private readonly int _walkAnimState;
+    private Vector3 _movementInput;
+    private bool _isJumping;
 
-    private void Start()
+    private void Update()
     {
-        
-        hiDel += Bye;
-        byeDel += Hello;
-        sumDel += hiDel - byeDel;
-        sumDel?.Invoke("strongsman");
-        
+        GetMoveInput();
     }
-    //    [SerializeField] private Rigidbody2D _rigidbody;
-    //    [SerializeField] private float _speed;
-    //    [SerializeField] private float _jumpForce;
-    //    private Vector2 _direction;
-    //    void Update()
-    //    {
-    //        GetInput();
-    //    }
-    //    private void FixedUpdate()
-    //    {
-    //        Move();
-    //    }
+    private void FixedUpdate()
+    {
+        GetJumpInput();
+    }
+    private void GetMoveInput()
+    {
 
-    //    private void GetInput()
-    //    {
-    //        _direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * _jumpForce);
-    //    }
-    //    private void Move()
-    //    {
-    //        if (_direction != Vector2.zero)
-    //        {
-    //            _rigidbody.AddForce(_direction * _speed);
-    //        }
-    //    }
+        _movementInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            Run();
+            return;
+        }
+        if (_movementInput.x != 0f)
+        {
+            Walk();
+        }
+    }
+    private void GetJumpInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _isJumping = true;
+            Jump();
+        }
+    }
+   
+    private void Walk()
+    {
+        transform.position += Time.deltaTime * _walkSpeed * _movementInput;
+    }
+    private void Run()
+    {
+        transform.position += Time.deltaTime * _runSpeed * _movementInput;
+    }
+    private void Jump()
+    {
+        //зробити жамп без фізики
+        //transform.position += Time.deltaTime * _jumpForce * _movementInput;
+        _rigidbody.AddForce(Time.deltaTime * _jumpForce * Vector2.up, ForceMode2D.Impulse);
+    }
 }
