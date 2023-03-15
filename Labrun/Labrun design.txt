@@ -2,8 +2,8 @@ Labrun
 
 Player
 -DetectionLevel
--Speed
 -PlayerMovement()
+-AnimationController()
 -* DoorOpen
 -* PlayerDeath
 -* StartDialog
