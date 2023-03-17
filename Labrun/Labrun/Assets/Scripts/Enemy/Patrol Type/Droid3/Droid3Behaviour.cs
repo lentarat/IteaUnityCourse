@@ -2,14 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Droid3Behaviour : MonoBehaviour, IPatrol
+public class Droid3Behaviour : PatrolDroid
 {
-    void Update()
+    void Start()
     {
-        Shcho();
+        AssignComponents();
+        _animator.Play("Idle");
+        AdjustPointsYCoordinate();
     }
-    public void Shcho()
+    public void Update()
     {
-        Debug.Log(IPatrol.a);
+        if (Input.GetKey(KeyCode.W))
+        {
+            Chase();
+        }
+        else
+        {
+            Patrol();
+        }
     }
+    public void Patrol()
+    {
+        Move();
+    }
+    //override public void Move()
+    //{
+    
+    //}
+    override public void Seek()
+    {
+        
+    }
+    
+
 }
