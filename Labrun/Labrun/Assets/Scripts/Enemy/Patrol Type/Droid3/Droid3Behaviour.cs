@@ -12,14 +12,8 @@ public class Droid3Behaviour : PatrolDroid
     }
     public void Update()
     {
-        if (Input.GetKey(KeyCode.W))
-        {
-            Chase();
-        }
-        else
-        {
-            Patrol();
-        }
+        Patrol();
+        
     }
     public void Patrol()
     {
@@ -31,7 +25,7 @@ public class Droid3Behaviour : PatrolDroid
     //}
     override public void Seek()
     {
-        
+        //зробити бекграунд чорним, а ліхтар - це меш, який контролює alpha
     }
     
 

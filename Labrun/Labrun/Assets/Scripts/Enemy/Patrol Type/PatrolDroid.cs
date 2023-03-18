@@ -9,6 +9,8 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
+
 public abstract class PatrolDroid : MonoBehaviour
 {
     public Animator _animator;
@@ -61,52 +63,95 @@ public abstract class PatrolDroid : MonoBehaviour
     }
     public void Move()
     {
-        if (_rigidbody.IsAwake())
-        {
-            _rigidbody.Sleep();
-            _boxCollider.enabled = false;
-        }
+        //if (_rigidbody.IsAwake())
+        //{
+        //    _rigidbody.Sleep();
+        //    _boxCollider.enabled = false;
+        //}
         if (Vector2.Distance(transform.position, _routePoints[_currentPointIndex]) < 0.1f)
         {
+            float tempAngle = 0f;
             if (_currentPointIndex == _routePoints.Length - 1)
             {
-                goingInverse = true;
-                //_direction = new Vector2(transform.position.x, transform.position.y) - _routePoints[0];
+                goingInverse = true; 
                 _spriteRenderer.flipX = false;
             }
             else if (_currentPointIndex == 0)
             {
                 goingInverse = false;
-                //_direction = new Vector2(transform.position.x, transform.position.y) - _routePoints[_routePoints.Length-2];
                 _spriteRenderer.flipX = true;
             }
 
             if (goingInverse)
             {
-                _direction = _routePoints[_currentPointIndex-1] - _routePoints[_currentPointIndex];
+                _direction = _routePoints[_currentPointIndex - 1] - _routePoints[_currentPointIndex];
                 _currentPointIndex--;
-                _angle = Vector2.Angle(Vector2.left, _direction);
+
+                if (_direction.y > 0.1f)
+                {
+                    tempAngle = -Vector2.Angle(Vector2.left, _direction);
+                }
+                else if (_direction.y < -0.1f)
+                {
+                    tempAngle = Vector2.Angle(Vector2.left, _direction);
+                }
+                else
+                {
+                    tempAngle = 0f;
+                }
             }
             else
             {
                 _direction = _routePoints[_currentPointIndex + 1] - _routePoints[_currentPointIndex];
                 _currentPointIndex++;
-                _angle = Vector2.Angle(Vector2.right, _direction);
+                if (_direction.y > 0.1f)
+                {
+                    tempAngle = Vector2.Angle(Vector2.right, _direction);
+                }
+                else if (_direction.y < -0.1f)
+                {
+                    tempAngle = -Vector2.Angle(Vector2.right, _direction);
+                }
+                else
+                {
+                    tempAngle = 0f;
+                }
             }
-            transform.rotation = Quaternion.Euler(0f, 0f, _angle);
-            
+            StartCoroutine(RotateAngle(tempAngle));
         }
         transform.position += Time.deltaTime * _speed * _direction.normalized;
     }
     public abstract void Seek();
     public void Chase()
     {
-        if (_rigidbody.IsSleeping())
+        //if (_rigidbody.IsSleeping())
+        //{
+        //    _rigidbody.WakeUp();
+        //    _boxCollider.enabled = true;
+        //}
+        //_direction = transform.position - _playerTransform.position;
+        //_rigidbody.AddForce(Time.deltaTime * _speed * _direction);
+    }
+    private IEnumerator RotateAngle(float toAngle)
+    {
+        if (toAngle > _angle)
         {
-            _rigidbody.WakeUp();
-            _boxCollider.enabled = true;
+            while (toAngle > _angle)
+            {
+                _angle += Time.deltaTime * 100f;
+                transform.rotation = Quaternion.Euler(0f, 0f, _angle);
+                yield return null;
+            }
         }
-        _direction = transform.position - _playerTransform.position;
-        _rigidbody.AddForce(Time.deltaTime * _speed * _direction);
+        else
+        {
+            while (toAngle < _angle)
+            {
+                _angle -= Time.deltaTime * 100f;
+                transform.rotation = Quaternion.Euler(0f, 0f, _angle);
+                yield return null;
+            }
+        }
+        yield return null;
     }
 }
