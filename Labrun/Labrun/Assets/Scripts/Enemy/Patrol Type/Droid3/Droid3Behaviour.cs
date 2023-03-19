@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Droid3Behaviour : PatrolDroid
 {
+   //[SerializeField] private Light2D _light;
     void Start()
     {
         AssignComponents();
@@ -13,7 +15,6 @@ public class Droid3Behaviour : PatrolDroid
     public void Update()
     {
         Patrol();
-        
     }
     public void Patrol()
     {

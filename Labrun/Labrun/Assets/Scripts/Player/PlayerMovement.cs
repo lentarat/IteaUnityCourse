@@ -5,19 +5,21 @@ using System;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private PlayerStats _playerStats;
     [SerializeField] private Rigidbody2D _rigidbody;
     [SerializeField] private AnimationController _animController;
     [SerializeField] private SpriteRenderer _spriteRenderer;
 
-    [SerializeField] private float _walkSpeed;
-    [SerializeField] private float _runSpeed;
-    [SerializeField] private float _jumpForce;
-
+    private LayerMask _groundLayer;
     private Vector2 _movementInput;
     private readonly float xJumpVelocityThreshold = 2f;
     private bool _isJumping;
     private bool _isRunning;
     private bool _isGrounded;
+    private void Awake()
+    {
+        _groundLayer = LayerMask.NameToLayer("Ground");
+    }
 
     private void Update()
     {
@@ -74,11 +76,13 @@ public class PlayerMovement : MonoBehaviour
     private void Idle()
     {
         _animController.ChangeAnimationState(_animController.Idle);
+        _rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
     }
     
     private void Walk()
     {
-        _rigidbody.AddForce(_walkSpeed * _movementInput);
+        _rigidbody.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
+        _rigidbody.AddForce(_playerStats.WalkSpeed * _movementInput);
         if (_isGrounded)
         {
             _animController.ChangeAnimationState(_animController.Walk);
@@ -97,12 +101,14 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Run()
     {
-        _rigidbody.AddForce(_runSpeed * _movementInput);
+        _rigidbody.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
+        _rigidbody.AddForce(_playerStats.RunSpeed * _movementInput);
         _animController.ChangeAnimationState(_animController.Run);
     }
     private void Jump()
     {
-        _rigidbody.AddForce(_jumpForce * Vector2.up, ForceMode2D.Impulse);
+        _rigidbody.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
+        _rigidbody.AddForce(_playerStats.JumpForce * Vector2.up, ForceMode2D.Impulse);
         _animController.ChangeAnimationState(_animController.Jump);
     }
 
@@ -117,18 +123,17 @@ public class PlayerMovement : MonoBehaviour
             _spriteRenderer.flipX = true;
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)  
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (collision.gameObject.layer == _groundLayer)
         {
             _isGrounded = true;
             _rigidbody.drag = 15f;
-
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (collision.gameObject.layer == _groundLayer)
         {
             _isGrounded = false;
             _rigidbody.drag = 0f;

@@ -1,12 +1,3 @@
-//public interface IPatrol
-//{
-//    void Patrol();
-//    //void Move();
-//    //void Seek();
-//    //void Detect();
-//    //void Chase();
-//}
-
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
@@ -14,26 +5,23 @@ using System.Collections;
 public abstract class PatrolDroid : MonoBehaviour
 {
     public Animator _animator;
-    private SpriteRenderer _spriteRenderer;
-    private Rigidbody2D _rigidbody;
-    private Transform _playerTransform;
-    private BoxCollider2D _boxCollider;
 
-    [SerializeField] float yOffsetOfRoutePoints;
+    [SerializeField] private float _yOffsetOfRoutePoints;
     [SerializeField] private float _speed;
 
     private Vector2[] _routePoints;
     private Vector3 _direction;
     private float _angle;
     private int _currentPointIndex = 1;
-    private bool goingInverse;
+    private bool _goingInverse;
+    private bool _routeIsInverted;
     public void AssignComponents()
     {
         _animator = gameObject.GetComponent<Animator>();
-        _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        _rigidbody = gameObject.GetComponent<Rigidbody2D>();
-        _boxCollider = gameObject.GetComponent<BoxCollider2D>();
-        _playerTransform = GameObject.FindWithTag("Player").transform;
+        //_spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        //_rigidbody = gameObject.GetComponent<Rigidbody2D>();
+        //_boxCollider = gameObject.GetComponent<BoxCollider2D>();
+        //_playerTransform = GameObject.FindWithTag("Player").transform;
     }
 
     public void AdjustPointsYCoordinate()
@@ -44,8 +32,8 @@ public abstract class PatrolDroid : MonoBehaviour
         {
             if (go.CompareTag("RoutePoint"))
             {
-                
-                tempRoutePoints.Add(new Vector2( go.position.x, Physics2D.Raycast(go.position, Vector2.down).point.y + yOffsetOfRoutePoints));
+
+                tempRoutePoints.Add(new Vector2(go.position.x, Physics2D.Raycast(go.position, Vector2.down).point.y + _yOffsetOfRoutePoints));
                 Destroy(go.gameObject);
             }
         }
@@ -54,11 +42,11 @@ public abstract class PatrolDroid : MonoBehaviour
         _direction = _routePoints[1] - _routePoints[0];
         if (_direction.x > 0f)
         {
-            _spriteRenderer.flipX = true;
+            transform.rotation = Quaternion.Euler(Vector3.up * 180f);
         }
         else
         {
-            _spriteRenderer.flipX = false;
+            _routeIsInverted = true;
         }
     }
     public void Move()
@@ -73,27 +61,55 @@ public abstract class PatrolDroid : MonoBehaviour
             float tempAngle = 0f;
             if (_currentPointIndex == _routePoints.Length - 1)
             {
-                goingInverse = true; 
-                _spriteRenderer.flipX = false;
+                _goingInverse = true;
+                if (_routeIsInverted)
+                {
+                    transform.rotation = Quaternion.Euler(Vector3.up * 180f);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.Euler(Vector3.zero);
+                }
             }
             else if (_currentPointIndex == 0)
             {
-                goingInverse = false;
-                _spriteRenderer.flipX = true;
+                _goingInverse = false;
+                if (_routeIsInverted)
+                {
+                    transform.rotation = Quaternion.Euler(Vector3.zero);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.Euler(Vector3.up * 180f);
+                }
             }
 
-            if (goingInverse)
+            if (_goingInverse)
             {
                 _direction = _routePoints[_currentPointIndex - 1] - _routePoints[_currentPointIndex];
                 _currentPointIndex--;
 
                 if (_direction.y > 0.1f)
                 {
-                    tempAngle = -Vector2.Angle(Vector2.left, _direction);
+                    if (_routeIsInverted)
+                    {
+                        tempAngle = Vector2.Angle(Vector2.right, _direction);
+                    }
+                    else
+                    {
+                        tempAngle = -Vector2.Angle(Vector2.left, _direction);
+                    }
                 }
                 else if (_direction.y < -0.1f)
                 {
-                    tempAngle = Vector2.Angle(Vector2.left, _direction);
+                    if (_routeIsInverted)
+                    {
+                        tempAngle = -Vector2.Angle(Vector2.right, _direction);
+                    }
+                    else
+                    {
+                        tempAngle = Vector2.Angle(Vector2.left, _direction);
+                    }
                 }
                 else
                 {
@@ -106,18 +122,36 @@ public abstract class PatrolDroid : MonoBehaviour
                 _currentPointIndex++;
                 if (_direction.y > 0.1f)
                 {
-                    tempAngle = Vector2.Angle(Vector2.right, _direction);
+                    if (_routeIsInverted)
+                    {
+                        tempAngle = -Vector2.Angle(Vector2.left, _direction);
+                    }
+                    else
+                    {
+                        tempAngle = Vector2.Angle(Vector2.right, _direction);
+                    }
                 }
                 else if (_direction.y < -0.1f)
                 {
-                    tempAngle = -Vector2.Angle(Vector2.right, _direction);
+                    if (_routeIsInverted)
+                    {
+                        tempAngle = Vector2.Angle(Vector2.left, _direction);
+                    }
+                    else
+                    {
+                        tempAngle = -Vector2.Angle(Vector2.right, _direction);
+                    }
                 }
                 else
                 {
                     tempAngle = 0f;
                 }
             }
+
+            //if (tempAngle != _angle)
+            //{
             StartCoroutine(RotateAngle(tempAngle));
+            //}
         }
         transform.position += Time.deltaTime * _speed * _direction.normalized;
     }
@@ -132,24 +166,50 @@ public abstract class PatrolDroid : MonoBehaviour
         //_direction = transform.position - _playerTransform.position;
         //_rigidbody.AddForce(Time.deltaTime * _speed * _direction);
     }
+
     private IEnumerator RotateAngle(float toAngle)
     {
-        if (toAngle > _angle)
+        if (transform.eulerAngles.y == 180f)
         {
-            while (toAngle > _angle)
+            toAngle = -toAngle;
+            if (toAngle < _angle)
             {
-                _angle += Time.deltaTime * 100f;
-                transform.rotation = Quaternion.Euler(0f, 0f, _angle);
-                yield return null;
+                while (toAngle < _angle)
+                {
+                    _angle -= Time.deltaTime * 100f;
+                    transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, _angle);
+                    yield return null;
+                }
+            }
+            else
+            {
+                while (toAngle > _angle)
+                {
+                    _angle += Time.deltaTime * 100f;
+                    transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, _angle);
+                    yield return null;
+                }
             }
         }
         else
         {
-            while (toAngle < _angle)
+            if (toAngle < _angle)
             {
-                _angle -= Time.deltaTime * 100f;
-                transform.rotation = Quaternion.Euler(0f, 0f, _angle);
-                yield return null;
+                while (toAngle < _angle)
+                {
+                    _angle -= Time.deltaTime * 100f;
+                    transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, _angle);
+                    yield return null;
+                }
+            }
+            else
+            {
+                while (toAngle > _angle)
+                {
+                    _angle += Time.deltaTime * 100f;
+                    transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, _angle);
+                    yield return null;
+                }
             }
         }
         yield return null;
