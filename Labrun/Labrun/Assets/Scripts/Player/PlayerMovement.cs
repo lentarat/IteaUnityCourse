@@ -75,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Idle()
     {
+        Debug.Log(Time.time);
         _animController.ChangeAnimationState(_animController.Idle);
         _rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
     }

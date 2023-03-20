@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
+
 
 public class Droid3Behaviour : PatrolDroid
 {
@@ -19,15 +19,19 @@ public class Droid3Behaviour : PatrolDroid
     public void Patrol()
     {
         Move();
+        Seek();
+        //Debug.DrawRay(transform.localPosition+Vector3.up*0.5f, -transform.right,Color.cyan);
+        //Debug.DrawRay(transform.localPosition + Vector3.up * 0.5f, (_playerPosition.position - transform.position).normalized, Color.cyan);
+        //Debug.Log(Vector2.Angle((_playerPosition.position - transform.position).normalized, -transform.right));
     }
     //override public void Move()
     //{
     
     //}
-    override public void Seek()
-    {
-        //зробити бекграунд чорним, а ліхтар - це меш, який контролює alpha
-    }
+    //override public void Seek()
+    //{
+    //    Physics2D.Raycast(transform.position, _playerPosition,)
+    //}
     
 
 }

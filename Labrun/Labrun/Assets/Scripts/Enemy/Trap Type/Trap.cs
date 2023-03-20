@@ -5,6 +5,10 @@ using UnityEngine;
 public class Trap : MonoBehaviour
 {
     // protected vs public?
+    protected readonly int Activate = Animator.StringToHash("Activate");
+    protected readonly int Deactivate = Animator.StringToHash("Deactivate");
+    protected readonly int Idle = Animator.StringToHash("Idle");
+    
     [SerializeField] private float _damage;
     protected float Damage => _damage; 
 
@@ -13,13 +17,14 @@ public class Trap : MonoBehaviour
     protected Animator _animator;
 
     protected bool _isActivated = true;
-    
-    protected virtual void DealDamage(Collider2D collision)
+
+    protected void SetIdleAnimation()
     {
-        if (collision.gameObject.layer == _playerLayer)
-        {
-            _playerStats.Health -= _damage;
-        }
+        _animator.Play(Idle);
+    }
+    protected virtual void DealDamage()
+    {   
+        _playerStats.Health -= _damage;   
     }
     private void Awake()
     {
@@ -29,9 +34,9 @@ public class Trap : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (_isActivated)
+        if (_isActivated && collision.gameObject.layer == _playerLayer)
         {
-            DealDamage(collision);
+            DealDamage();
         }
     }
 }

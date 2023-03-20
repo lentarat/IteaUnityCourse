@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class Saw : Trap
 {
-    private readonly int Activate = Animator.StringToHash("Activate");
-    private readonly int Deactivate = Animator.StringToHash("Deactivate");
-    private readonly int Idle = Animator.StringToHash("Idle");
-
     protected bool IsActivated
     {
         get => _isActivated;
@@ -21,6 +17,17 @@ public class Saw : Trap
             {
                 _animator.Play(Deactivate);
             }
+        }
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            IsActivated = false;
+        }
+        else  if (Input.GetKeyDown(KeyCode.Z))
+        {
+            IsActivated = true;
         }
     }
     //protected override void DealDamage(Collider2D col)

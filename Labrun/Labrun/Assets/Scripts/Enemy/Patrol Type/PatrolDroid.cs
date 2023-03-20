@@ -1,14 +1,17 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.Rendering.Universal;
 
-public abstract class PatrolDroid : MonoBehaviour
+public class PatrolDroid : MonoBehaviour
 {
     public Animator _animator;
 
     [SerializeField] private float _yOffsetOfRoutePoints;
     [SerializeField] private float _speed;
 
+    [SerializeField]protected Transform _playerPosition;
+    protected Light2D _light;
     private Vector2[] _routePoints;
     private Vector3 _direction;
     private float _angle;
@@ -18,6 +21,8 @@ public abstract class PatrolDroid : MonoBehaviour
     public void AssignComponents()
     {
         _animator = gameObject.GetComponent<Animator>();
+        _playerPosition = FindObjectOfType<PlayerStats>().transform;
+        _light = gameObject.GetComponentInChildren<Light2D>();
         //_spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         //_rigidbody = gameObject.GetComponent<Rigidbody2D>();
         //_boxCollider = gameObject.GetComponent<BoxCollider2D>();
@@ -155,7 +160,16 @@ public abstract class PatrolDroid : MonoBehaviour
         }
         transform.position += Time.deltaTime * _speed * _direction.normalized;
     }
-    public abstract void Seek();
+    public void Seek()
+    {
+        if (Vector2.Distance(_playerPosition.position, transform.position) < _light.pointLightOuterRadius &&
+            Vector2.Angle((_playerPosition.position - transform.position).normalized, -transform.right) < 30f)
+        {
+            //Stop();
+        }
+        //Debug.Log(_light.pointLightOuterRadius +" " + Vector2.Distance(_playerPosition.position,transform.position));
+        //Physics2D.Raycast(transform.position, new Vector2(_playerPosition.position.x, _playerPosition.position.y), _light.pointLightOuterRadius);  
+    }
     public void Chase()
     {
         //if (_rigidbody.IsSleeping())
