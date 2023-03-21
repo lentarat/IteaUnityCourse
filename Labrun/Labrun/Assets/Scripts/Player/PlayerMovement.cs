@@ -10,12 +10,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AnimationController _animController;
     [SerializeField] private SpriteRenderer _spriteRenderer;
 
+    private readonly PlayerAnimations _playerAnimations = new PlayerAnimations(); // краще присвоювати тут чи в awake?
+
     private LayerMask _groundLayer;
     private Vector2 _movementInput;
     private readonly float xJumpVelocityThreshold = 2f;
     private bool _isJumping;
     private bool _isRunning;
     private bool _isGrounded;
+
     private void Awake()
     {
         _groundLayer = LayerMask.NameToLayer("Ground");
@@ -24,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         GetInput();
-        CheckForFlip();
     }
     private void FixedUpdate()
     {
@@ -33,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     private void GetInput()
     {
         _movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), 0f);
+        CheckForFlip();
         if (Input.GetKey(KeyCode.Space))
         {
             _isJumping = true;
@@ -75,8 +78,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Idle()
     {
-        Debug.Log(Time.time);
-        _animController.ChangeAnimationState(_animController.Idle);
+        _animController.ChangeAnimationState(_playerAnimations.IdleAnimation);
         _rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
     }
     
@@ -86,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody.AddForce(_playerStats.WalkSpeed * _movementInput);
         if (_isGrounded)
         {
-            _animController.ChangeAnimationState(_animController.Walk);
+            _animController.ChangeAnimationState(_playerAnimations.WalkAnimation);
         }
         else
         {
@@ -104,22 +106,22 @@ public class PlayerMovement : MonoBehaviour
     {
         _rigidbody.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
         _rigidbody.AddForce(_playerStats.RunSpeed * _movementInput);
-        _animController.ChangeAnimationState(_animController.Run);
+        _animController.ChangeAnimationState(_playerAnimations.RunAnimation);
     }
     private void Jump()
     {
         _rigidbody.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
         _rigidbody.AddForce(_playerStats.JumpForce * Vector2.up, ForceMode2D.Impulse);
-        _animController.ChangeAnimationState(_animController.Jump);
+        _animController.ChangeAnimationState(_playerAnimations.JumpAnimation);
     }
 
     private void CheckForFlip()
     {
-        if (_rigidbody.velocity.x > 0f)
+        if(_movementInput.x > 0f)
         {
             _spriteRenderer.flipX = false;
         }
-        else
+        else if(_movementInput.x < 0f)
         {
             _spriteRenderer.flipX = true;
         }
