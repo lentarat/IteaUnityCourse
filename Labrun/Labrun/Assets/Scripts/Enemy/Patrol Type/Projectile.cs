@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField]private float _projectileSpeed;
-    private Animator _animator;
-    private Transform _destination;
+    [SerializeField] private float _projectileSpeed;
+    [SerializeField] private float _damage;
+    [SerializeField] private ParticleSystem _particleSystem;
+    [SerializeField] private AudioSource _impactSfx;
+    [SerializeField] private Animator _animator;
+
+    private PlayerStats _playerStats;
     private Vector3 _direction;
     private LayerMask _playerLayer;
+    
     private void Start()
     {
-        _destination = FindObjectOfType<PlayerMovement>().transform;
-        _direction = _destination.position - transform.position;
+        _playerStats = FindObjectOfType<PlayerStats>();
+        _direction = _playerStats.transform.position - transform.position;
         float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
         _playerLayer = LayerMask.NameToLayer("Player");
-        _animator = gameObject.GetComponent<Animator>();
     }
     void Update()
     {
@@ -28,10 +33,14 @@ public class Projectile : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        _animator.Play("Droid3Projectile_Impact");
+        _projectileSpeed = 0.5f;
+        _impactSfx.Play();
         if (collision.gameObject.layer == _playerLayer)
         {
-            _projectileSpeed = 1f;
-            _animator.Play("Droid3Projectile_Impact");
+            _playerStats.Health -= _damage;
+            _particleSystem.transform.SetParent(_playerStats.transform);
+            _particleSystem.Play();
         }
     }
 }

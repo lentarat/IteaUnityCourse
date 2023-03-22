@@ -1,7 +1,8 @@
 using UnityEngine;
 
 public class PlayerAnimations
-{
+{ 
+    // чи варто зробити цей клас static?
     public readonly int IdleAnimation = Animator.StringToHash("Idle");
     public readonly int WalkAnimation = Animator.StringToHash("Walk");
     public readonly int RunAnimation = Animator.StringToHash("Run");

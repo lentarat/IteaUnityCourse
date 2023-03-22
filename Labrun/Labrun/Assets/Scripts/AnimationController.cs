@@ -13,7 +13,6 @@ public class AnimationController : MonoBehaviour
     public void ChangeAnimationState(int newState)
     {
         if (_currentState == newState) return;
-        Debug.Log(newState);
         _animator.Play(newState);
         _currentState = newState;
     }

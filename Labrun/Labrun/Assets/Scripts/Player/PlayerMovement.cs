@@ -9,12 +9,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D _rigidbody;
     [SerializeField] private AnimationController _animController;
     [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] AudioManager _audioManager;
+
+    [SerializeField] private float xJumpVelocityThreshold;
 
     private readonly PlayerAnimations _playerAnimations = new PlayerAnimations(); // краще присвоювати тут чи в awake?
 
     private LayerMask _groundLayer;
     private Vector2 _movementInput;
-    private readonly float xJumpVelocityThreshold = 2f;
     private bool _isJumping;
     private bool _isRunning;
     private bool _isGrounded;
@@ -25,11 +27,15 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Update()
-    {
+    {   
         GetInput();
     }
     private void FixedUpdate()
     {
+        if (_playerStats.Health <= 0f)
+        {
+            return;
+        }
         Move();
     }
     private void GetInput()
@@ -78,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Idle()
     {
+        _audioManager.Pause();
         _animController.ChangeAnimationState(_playerAnimations.IdleAnimation);
         _rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
     }
@@ -88,6 +95,7 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody.AddForce(_playerStats.WalkSpeed * _movementInput);
         if (_isGrounded)
         {
+            _audioManager.Play("Walk");
             _animController.ChangeAnimationState(_playerAnimations.WalkAnimation);
         }
         else
@@ -107,6 +115,11 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
         _rigidbody.AddForce(_playerStats.RunSpeed * _movementInput);
         _animController.ChangeAnimationState(_playerAnimations.RunAnimation);
+        //if (!_runSfx.isPlaying)
+        //{
+        //    _runSfx.Play();
+        //}
+        _audioManager.Play("Run");
     }
     private void Jump()
     {
@@ -140,6 +153,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _isGrounded = false;
             _rigidbody.drag = 0f;
+            _audioManager.Pause();
         }
     }
 }
