@@ -36,13 +36,11 @@ public class PatrolDroid : MonoBehaviour
     }
     private void Attack()
     {
-        //_audioManager.Play("Shoot");
         _animationController.ChangeAnimationState(_droid3Animations.AttackAnimation);
     }
     private void Shoot()
     {
         Instantiate(_projectile,_gunTransform.position,Quaternion.identity);
-        _audioManager.Play("Shoot");
     }
 
 }

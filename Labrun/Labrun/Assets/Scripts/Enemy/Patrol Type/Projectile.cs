@@ -6,13 +6,13 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private float _projectileSpeed;
     [SerializeField] private float _damage;
-    [SerializeField] private ParticleSystem _particleSystem;
-    [SerializeField] private AudioSource _impactSfx;
     [SerializeField] private Animator _animator;
-
+    [SerializeField] private AudioManager _audioManager;
+   
     private PlayerStats _playerStats;
     private Vector3 _direction;
     private LayerMask _playerLayer;
+    private bool _hit;
     
     private void Start()
     {
@@ -22,6 +22,8 @@ public class Projectile : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         _playerLayer = LayerMask.NameToLayer("Player");
+
+        _audioManager.Play("Shoot");
     }
     void Update()
     {
@@ -33,14 +35,16 @@ public class Projectile : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        _animator.Play("Droid3Projectile_Impact");
-        _projectileSpeed = 0.5f;
-        _impactSfx.Play();
-        if (collision.gameObject.layer == _playerLayer)
+        if (!_hit)
         {
-            _playerStats.Health -= _damage;
-            _particleSystem.transform.SetParent(_playerStats.transform);
-            _particleSystem.Play();
+            _hit = true;
+            _animator.Play("Droid3Projectile_Impact");
+            _audioManager.Play("Impact");
+            _projectileSpeed = 0.5f;
+            if (collision.gameObject.layer == _playerLayer)
+            {
+                _playerStats.Health -= _damage;
+            }
         }
     }
 }

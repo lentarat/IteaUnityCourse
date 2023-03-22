@@ -7,20 +7,52 @@ public class Elevator : MonoBehaviour
 {
     //private Light2D _light;
     //private float _slowDownEffectModifier;
-    private void FixedUpdate()
+    [SerializeField] private Transform _firstPoint;
+    [SerializeField] private Transform _secondPoint;
+    [SerializeField] private bool _oneWayElevator;
+    private Vector3 _from;
+    private Vector3 _to;
+
+    [SerializeField] private float _speed;
+    private Vector3 _direction;
+    private bool _goingInverse;
+    private void Start()
     {
-        if (transform.localPosition.y > -2.74f)
+        _from = _firstPoint.position;
+        _to = _secondPoint.position;
+        transform.position = _from;
+        _direction = _to - _from;
+    }
+    private void SetDirection()
+    {
+        if (_goingInverse)
         {
-            transform.position += 0.025f * Vector3.down;
+            _to = _firstPoint.position;
+            _from = _secondPoint.position;
+            
         }
-        //else if (transform.localPosition.y < -2f)
-        //{
-        //    _slowDownEffectModifier
-        //    Debug.Log(Mathf.Log10(_slowDownEffectModifier));
-        //}
         else
         {
-            Destroy(this);
+            _to = _secondPoint.position;
+            _from = _firstPoint.position;
         }
+        _direction = _to - _from;
+    }
+    private void Go()
+    {
+        transform.position += _speed * _direction;
+        if (Vector3.Distance(transform.position, _to) < 0.1f)
+        {
+            if (_oneWayElevator)
+            {
+                Destroy(this);
+            }
+            _goingInverse = !_goingInverse;
+            SetDirection();
+        }
+    }
+    private void FixedUpdate()
+    {
+        Go();
     }
 }

@@ -14,12 +14,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float xJumpVelocityThreshold;
 
     private readonly PlayerAnimations _playerAnimations = new PlayerAnimations(); // краще присвоювати тут чи в awake?
-
+    
     private LayerMask _groundLayer;
+    private LayerMask _elevatorLayer;
     private Vector2 _movementInput;
     private bool _isJumping;
     private bool _isRunning;
     private bool _isGrounded;
+    private bool _isOnElevator;
 
     private void Awake()
     {
@@ -27,7 +29,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Update()
-    {   
+    {
+        if (_playerStats.Health <= 0f)
+        {
+            return;
+        }
         GetInput();
     }
     private void FixedUpdate()
@@ -139,12 +145,35 @@ public class PlayerMovement : MonoBehaviour
             _spriteRenderer.flipX = true;
         }
     }
+    //private void LateUpdate()
+    //{
+    //    if (_isOnElevator)
+    //    {
+    //        _rigidbody.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
+    //        //з ліфтом проблеми
+    //    }
+    //}
     private void OnTriggerEnter2D(Collider2D collision)  
     {
         if (collision.gameObject.layer == _groundLayer)
         {
+            if (collision.attachedRigidbody.velocity.y != 0f)
+            {
+                return;
+            }
             _isGrounded = true;
             _rigidbody.drag = 15f;
+        }
+        //if (collision.gameObject.layer == _elevatorLayer)
+        //{
+            
+        //}
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == _elevatorLayer)
+        {
+            _rigidbody.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -156,4 +185,11 @@ public class PlayerMovement : MonoBehaviour
             _audioManager.Pause();
         }
     }
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.layer == _elevatorLayer)
+    //    {
+    //        _isOnElevator = true;
+    //    }
+    //}
 }

@@ -1,19 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerStats : MonoBehaviour
 {
     [SerializeField] private float _health;
+    public Action<float> OnDamageTaken;
+    public Action OnPlayerDeath;
     public float Health
     { get => _health;
         set
         {
             _health = value;
+            OnDamageTaken(_health);
             if (_health <= 0f)
             {
-                gameObject.GetComponent<AnimationController>().ChangeAnimationState(Animator.StringToHash("Die"));
-                gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+                OnPlayerDeath();
             }
         }
     }
