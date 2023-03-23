@@ -145,14 +145,6 @@ public class PlayerMovement : MonoBehaviour
             _spriteRenderer.flipX = true;
         }
     }
-    //private void LateUpdate()
-    //{
-    //    if (_isOnElevator)
-    //    {
-    //        _rigidbody.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
-    //        //з ліфтом проблеми
-    //    }
-    //}
     private void OnTriggerEnter2D(Collider2D collision)  
     {
         if (collision.gameObject.layer == _groundLayer)
@@ -164,10 +156,6 @@ public class PlayerMovement : MonoBehaviour
             _isGrounded = true;
             _rigidbody.drag = 15f;
         }
-        //if (collision.gameObject.layer == _elevatorLayer)
-        //{
-            
-        //}
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
