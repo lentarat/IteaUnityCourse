@@ -21,12 +21,11 @@ public class Computer : MonoBehaviour
             _text.text += go;
             yield return new WaitForSeconds(0.1f);
         }
-        Debug.Log(_words);
         yield return null;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == _playerLayer)
+        if(_text.text == "" && collision.gameObject.layer == _playerLayer)
         {
             StartCoroutine(BeginTalk());
         }

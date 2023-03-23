@@ -6,7 +6,8 @@ public class MoveBetweenPoints : MonoBehaviour
 {
     [SerializeField] private float _yOffsetOfRoutePoints;
     [SerializeField] private float _speed;
-    
+    [SerializeField] private float _pointsAccuracy;
+
     private Vector2[] _routePoints;
     private Vector3 _direction;
     private float _angle;
@@ -55,7 +56,7 @@ public class MoveBetweenPoints : MonoBehaviour
 
     public void Move()
     {
-        if (Vector2.Distance(transform.position, _routePoints[_currentPointIndex]) < 0.1f)
+        if (Vector2.Distance(transform.position, _routePoints[_currentPointIndex]) < _pointsAccuracy)
         {
             float tempAngle = 0f;
             if (_currentPointIndex == _routePoints.Length - 1)

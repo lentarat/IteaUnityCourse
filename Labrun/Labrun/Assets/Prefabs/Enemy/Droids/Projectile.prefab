@@ -243,10 +243,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b9a71579aff5184da4d0e944459d098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileSpeed: 4
+  _projectileSpeed: 5
   _damage: 6
-  _particleSystem: {fileID: 0}
-  _impactSfx: {fileID: 909109112454412032}
   _animator: {fileID: 8264275195862889057}
   _audioManager: {fileID: 8620415646930126912}
 --- !u!114 &8620415646930126912

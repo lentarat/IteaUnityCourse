@@ -441,6 +441,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _yOffsetOfRoutePoints: 0
   _speed: 1
+  _pointsAccuracy: 1.5
 --- !u!114 &6381297704427713823
 MonoBehaviour:
   m_ObjectHideFlags: 0
