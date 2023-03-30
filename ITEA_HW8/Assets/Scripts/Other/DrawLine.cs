@@ -9,7 +9,7 @@ public class DrawLine : MonoBehaviour
     private LineRenderer _line;
     private void Awake()
     {
-        //_startPosition = GetComponent<SpringJoint>().c
+        _startPosition.position = gameObject.GetComponent<SpringJoint>().connectedAnchor;
     }
     private void Update()
     {
