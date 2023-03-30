@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [SerializeField] private AudioSource _explosionSFX;
+
     [SerializeField] private float _explosionRadius;
     [SerializeField] private float _explosionForce;
     private void OnCollisionEnter(Collision collision)
@@ -15,6 +17,7 @@ public class Projectile : MonoBehaviour
     }
     private void Explode()
     {
+        _explosionSFX.Play();
         RaycastHit[] colliders = Physics.SphereCastAll(transform.position, _explosionRadius, transform.up);
         foreach (RaycastHit go in colliders)
         {

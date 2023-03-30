@@ -6,13 +6,18 @@ using System;
 
 public class Timer : MonoBehaviour
 {
-    [SerializeField] private float _timeLeft = 5f;
+    [SerializeField] private float _timeLeft;
     [SerializeField] private TextMeshProUGUI _timerText;
     [SerializeField] private Button _button;
     public Action OnTimerEnd;
     private void Awake()
     {
         _button.OnButtonClicked += DisplayTime;
+        /////////////
+        ///
+        //DisplayTime();
+        /// 
+        /////////////
     }
     private void DisplayTime()
     {

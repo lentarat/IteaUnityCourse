@@ -8,6 +8,7 @@ public class Button : MonoBehaviour
     
     public Action OnButtonClicked;
 
+    private bool _buttonWasClicked;
     //private bool _animationIsPlaying;
 
     //used by animator
@@ -17,8 +18,9 @@ public class Button : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("BlueBall"))
+        if (!_buttonWasClicked && collision.gameObject.layer == LayerMask.NameToLayer("BlueBall"))
         {
+            _buttonWasClicked = true;
             //if (_animationIsPlaying) return;
             //_animationIsPlaying = true;
             //_animator.Play("ButtonClick");

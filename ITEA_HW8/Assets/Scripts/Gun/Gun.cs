@@ -9,6 +9,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private Transform _shotParticleEffect;
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private Timer _timer;
+    [SerializeField] private AudioSource _shotSFX;
     private void Awake()
     {
         _timer.OnTimerEnd += Shoot;
@@ -17,12 +18,13 @@ public class Gun : MonoBehaviour
     {
         _timer.OnTimerEnd -= Shoot;
     }
-    private void ButtonClicked()
-    {
-        Shoot();
-    }
+    //private void ButtonClicked()
+    //{
+    //    Shoot();
+    //}
     private void Shoot()
     {
+        _shotSFX.Play();
         //_rigidbody.AddExplosionForce(_shotPower, _shotPosition.position, _shotRadius);
         _rigidbody.AddForce((_shotParticleEffect.position - _shotPosition.position) * _shotPower, ForceMode.Impulse);
     }

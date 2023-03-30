@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class DrawLine : MonoBehaviour
 {
-    private Transform _startPosition;
+    [SerializeField]private LineRenderer _line;
+    
+    private Vector3 _startPosition;
 
-    private LineRenderer _line;
     private void Awake()
     {
-        _startPosition.position = gameObject.GetComponent<SpringJoint>().connectedAnchor;
+        _startPosition = transform.position;
     }
     private void Update()
     {
-        _line.SetPosition(0, _startPosition.position);
+        _line.startWidth = 0.25f;
+        _line.startWidth = 0.25f;
+        _line.SetPosition(0, _startPosition);
         _line.SetPosition(1, transform.position);
     }
 }
