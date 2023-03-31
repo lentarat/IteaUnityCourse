@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     public float RunSpeed { get => _runSpeed; set => _runSpeed = value; }
     [SerializeField] private float _walkSpeed;
     public float WalkSpeed { get => _walkSpeed; set => _walkSpeed = value; }
+    [SerializeField] private float _accelerationMultiplier;
+    public float AccelerationMultiplier { get => _accelerationMultiplier; set => _accelerationMultiplier = value; }
     [SerializeField] private float _jumpForce;
     public float JumpForce { get => _jumpForce; set => _jumpForce = value; }
     [SerializeField] private float _crouchSpeed;
@@ -21,6 +23,9 @@ public class PlayerMovement : MonoBehaviour
     public JumpState JumpState = new JumpState();
 
     private IPlayerMovementState _currentState;
+    public float ShiftDelay; /// <summary>
+    /// //////////////////
+    /// </summary>
     
     private void Start()
     {

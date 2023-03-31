@@ -20,7 +20,15 @@ public class RunState : IPlayerMovementState
     }
     private void Run(PlayerMovement playerMovement)
     {
-        Vector3 velocityVector = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        playerMovement.transform.position += playerMovement.RunSpeed * Time.deltaTime * velocityVector;
+        Vector3 velocityVector = new Vector3(
+            Mathf.Clamp(Input.GetAxis("Horizontal") * playerMovement.AccelerationMultiplier, -1, 1),
+            0f,
+            Mathf.Clamp(Input.GetAxis("Vertical") * playerMovement.AccelerationMultiplier, -1, 1)
+            );
+        if(playerMovement.ShiftDelay < 1)
+        { 
+            playerMovement.ShiftDelay += playerMovement.RunSpeed * Time.deltaTime;
+        }
+        playerMovement.transform.position += Mathf.Lerp(playerMovement.WalkSpeed, playerMovement.RunSpeed, playerMovement.ShiftDelay) * Time.deltaTime * velocityVector;
     }
 }
