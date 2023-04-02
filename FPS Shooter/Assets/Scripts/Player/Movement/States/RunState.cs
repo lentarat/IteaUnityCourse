@@ -6,29 +6,29 @@ public class RunState : IPlayerMovementState
 {
     public IPlayerMovementState DoState(PlayerMovement playerMovement)
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            //Debug.Log("RunState to walk!");
+            return playerMovement.JumpState;
+        }
+        else if (playerMovement.InputVector == Vector3.zero)
+        {
+            return playerMovement.IdleState;
+        }
+        else if (!Input.GetKey(KeyCode.LeftShift))
+        {
             return playerMovement.WalkState;
         }
         else
         {
-            //Debug.Log("RunState to run!");
             Run(playerMovement);
             return playerMovement.RunState;
         } 
     }
     private void Run(PlayerMovement playerMovement)
     {
-        Vector3 velocityVector = new Vector3(
-            Mathf.Clamp(Input.GetAxis("Horizontal") * playerMovement.AccelerationMultiplier, -1, 1),
-            0f,
-            Mathf.Clamp(Input.GetAxis("Vertical") * playerMovement.AccelerationMultiplier, -1, 1)
-            );
-        if(playerMovement.ShiftDelay < 1)
-        { 
-            playerMovement.ShiftDelay += playerMovement.RunSpeed * Time.deltaTime;
+        if (playerMovement.Rigidbody.velocity.magnitude > playerMovement.MaxRunSpeed)
+        {
+            playerMovement.Rigidbody.velocity = playerMovement.Rigidbody.velocity.normalized * playerMovement.MaxRunSpeed;
         }
-        playerMovement.transform.position += Mathf.Lerp(playerMovement.WalkSpeed, playerMovement.RunSpeed, playerMovement.ShiftDelay) * Time.deltaTime * velocityVector;
     }
 }
