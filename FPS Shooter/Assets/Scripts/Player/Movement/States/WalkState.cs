@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class WalkState : IPlayerMovementState
 {
+    private PlayerMovement _playerMovement;
     public IPlayerMovementState DoState(PlayerMovement playerMovement)
     {
+        if (_playerMovement == null)
+        {
+            Debug.Log("test " + Time.time);
+            _playerMovement = playerMovement;
+        }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -19,17 +25,26 @@ public class WalkState : IPlayerMovementState
         {
             return playerMovement.RunState;
         }
+        else if (Input.GetKey(KeyCode.LeftControl))
+        {
+            return playerMovement.CrouchState;
+        }
         else
         {
-            Walk(playerMovement);
+            Walk();
             return playerMovement.WalkState;
         }
     }
-    private void Walk(PlayerMovement playerMovement)
+    private void Walk()
     {
-        if(playerMovement.Rigidbody.velocity.magnitude > playerMovement.MaxWalkSpeed)
+        if(_playerMovement.Rigidbody.velocity.magnitude > _playerMovement.MaxWalkSpeed)
         {
-            playerMovement.Rigidbody.velocity = playerMovement.Rigidbody.velocity.normalized * playerMovement.MaxWalkSpeed;
+            _playerMovement.Rigidbody.velocity = _playerMovement.Rigidbody.velocity.normalized * _playerMovement.MaxWalkSpeed;
         }
+    }
+    private void CameraLerp()    ////////  зробити пародію на еффект стаміни
+    {
+        Debug.Log(_playerMovement.CameraLerpRatio);
+        _playerMovement.CameraTransform.localPosition = Vector3.Lerp(_playerMovement.LerpCameraFrom.localPosition, _playerMovement.LerpCameraTo.localPosition, _playerMovement.CameraLerpRatio += Time.deltaTime);
     }
 }

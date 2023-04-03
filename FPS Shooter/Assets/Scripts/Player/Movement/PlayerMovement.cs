@@ -8,14 +8,16 @@ public class PlayerMovement : MonoBehaviour
     public float MaxRunSpeed { get => _maxRunSpeed; set => _maxRunSpeed = value; }
     [SerializeField] private float _walkSpeed;
     public float MaxWalkSpeed { get => _walkSpeed; set => _walkSpeed = value; }
+    [SerializeField] private float _crouchedSpeed;
+    public float MaxCrouchedSpeed { get => _crouchedSpeed; set => _crouchedSpeed = value; }
+    [SerializeField] private float _crouchFrequency;
+    public float CrouchFrequency { get => _crouchFrequency; set => _crouchFrequency = value; }
+    [SerializeField] private float _jumpForce;
+    public float JumpForce { get => _jumpForce; set => _jumpForce = value; }
     [SerializeField] private float _accelerationMultiplier;
     public float AccelerationMultiplier { get => _accelerationMultiplier; set => _accelerationMultiplier = value; }
     [SerializeField] private float _drag;
     public float Drag { get => _drag; set => _drag = value; }
-    [SerializeField] private float _jumpForce;
-    public float JumpForce { get => _jumpForce; set => _jumpForce = value; }
-    [SerializeField] private float _crouchSpeed;
-    public float CrouchSpeed{ get => _crouchSpeed; set => _crouchSpeed = value; }
 
 
     public Rigidbody Rigidbody;
@@ -24,6 +26,10 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public bool OnGround;
     
     public Transform FeetTransform;
+    public Transform CameraTransform;
+    public Transform LerpCameraFrom;
+    public Transform LerpCameraTo;
+    public float CameraLerpRatio;
 
     public IdleState IdleState = new IdleState();
     public RunState RunState = new RunState();
@@ -44,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
     {
         GetInput();
         _currentState = _currentState.DoState(this);
-        Debug.Log(_currentState);
+        //Debug.Log(_currentState);
     }
 
     private void FixedUpdate()

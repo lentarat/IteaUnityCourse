@@ -4,38 +4,41 @@ using UnityEngine;
 
 public class JumpState : IPlayerMovementState
 {
+    private PlayerMovement _playerMovement;
+    private bool _jumped;
     public IPlayerMovementState DoState(PlayerMovement playerMovement)
     {
-        //if (playerMovement.OnGround && !(Input.GetKey(KeyCode.Space) || Input.GetKeyUp(KeyCode.Space)))
-        //{
-        //    return playerMovement.WalkState;
-        //}
-        //else
-        if (Input.GetKey(KeyCode.Space) || Input.GetKeyUp(KeyCode.Space))
+        if (_playerMovement == null)
         {
-            Jump(playerMovement);
-            return playerMovement.JumpState;
+            _playerMovement = playerMovement;
+        }
+
+        if (playerMovement.OnGround && _jumped)
+        {
+            _jumped = false;
+            return playerMovement.IdleState;
         }
         else
         {
-            return playerMovement.IdleState;
+            Jump();
+            return playerMovement.JumpState;
         }
-        
     }
-    private void Jump(PlayerMovement playerMovement)
+    private void Jump()
     {
-        Debug.Log(playerMovement.OnGround);
-        if (playerMovement.OnGround)
+        if (_playerMovement.OnGround)
         { 
-            Ray ray = new Ray(playerMovement.transform.position, -playerMovement.transform.up);
+            Ray ray = new Ray(_playerMovement.transform.position, -_playerMovement.transform.up);
             RaycastHit[] colliders = Physics.SphereCastAll(ray, 0.5f);
             {
                 foreach (RaycastHit item in colliders)
                 {
-                    if (item.collider.gameObject.layer == playerMovement.GroundLayer)
+                    if (item.collider.gameObject.layer == _playerMovement.GroundLayer)
                     {
-                        playerMovement.OnGround = false;
-                        playerMovement.Rigidbody.velocity += Time.fixedDeltaTime * playerMovement.JumpForce * Vector3.up;
+                        _playerMovement.OnGround = false;
+                        //playerMovement.Rigidbody.AddForce(Time.fixedDeltaTime * playerMovement.JumpForce * Vector3.up, ForceMode.Impulse);
+                        _playerMovement.Rigidbody.velocity += Time.fixedDeltaTime * _playerMovement.JumpForce * Vector3.up;
+                        _jumped = true;
                     }
                 }
             }

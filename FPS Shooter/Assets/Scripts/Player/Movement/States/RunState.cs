@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class RunState : IPlayerMovementState
 {
+    private PlayerMovement _playerMovement;
     public IPlayerMovementState DoState(PlayerMovement playerMovement)
     {
+        if (_playerMovement == null)
+        {
+            _playerMovement = playerMovement;
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             return playerMovement.JumpState;
@@ -20,15 +26,15 @@ public class RunState : IPlayerMovementState
         }
         else
         {
-            Run(playerMovement);
+            Run();
             return playerMovement.RunState;
         } 
     }
-    private void Run(PlayerMovement playerMovement)
+    private void Run()
     {
-        if (playerMovement.Rigidbody.velocity.magnitude > playerMovement.MaxRunSpeed)
+        if (_playerMovement.Rigidbody.velocity.magnitude > _playerMovement.MaxRunSpeed)
         {
-            playerMovement.Rigidbody.velocity = playerMovement.Rigidbody.velocity.normalized * playerMovement.MaxRunSpeed;
+            _playerMovement.Rigidbody.velocity = _playerMovement.Rigidbody.velocity.normalized * _playerMovement.MaxRunSpeed;
         }
     }
 }
