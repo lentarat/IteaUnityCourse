@@ -232,6 +232,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d560252d43f89104b8eb0cdd16221d6b, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d560252d43f89104b8eb0cdd16221d6b, type: 3}
       propertyPath: m_Name
       value: Vooden_Barrel (2)
@@ -298,6 +302,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 4.572
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: e12eea50f5b5b504f8e74c2bd1d23d0a, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e12eea50f5b5b504f8e74c2bd1d23d0a, type: 3}
       propertyPath: m_Name
       value: Fence_Small
@@ -320,6 +328,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 66860095}
     m_Modifications:
+    - target: {fileID: 7143512056130679527, guid: ebfe282d3f4f1bb418147d0694096aa9, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8316449222278531464, guid: ebfe282d3f4f1bb418147d0694096aa9, type: 3}
       propertyPath: m_RootOrder
       value: 24
@@ -483,6 +495,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 66860095}
     m_Modifications:
+    - target: {fileID: 7412207793664731943, guid: a0929c345d695b446b781829efd07e27, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8545122259685822536, guid: a0929c345d695b446b781829efd07e27, type: 3}
       propertyPath: m_RootOrder
       value: 22
@@ -604,6 +620,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: ac439c7a8567d07469c159f147f2e34e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ac439c7a8567d07469c159f147f2e34e, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ac439c7a8567d07469c159f147f2e34e, type: 3}
       propertyPath: m_Name
@@ -736,6 +756,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d560252d43f89104b8eb0cdd16221d6b, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d560252d43f89104b8eb0cdd16221d6b, type: 3}
       propertyPath: m_Name
       value: Vooden_Barrel (1)
@@ -810,6 +834,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4349574361233642335, guid: 9ec9a389e33c64a418c1a821a228a8b5, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ec9a389e33c64a418c1a821a228a8b5, type: 3}
 --- !u!4 &775341800 stripped
@@ -867,6 +895,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b7076b3e7b6b0d84aa05a7902d4e22ec, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b7076b3e7b6b0d84aa05a7902d4e22ec, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b7076b3e7b6b0d84aa05a7902d4e22ec, type: 3}
       propertyPath: m_Name
@@ -933,6 +965,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: ea5299bccb457e5499ab398e850af136, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ea5299bccb457e5499ab398e850af136, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ea5299bccb457e5499ab398e850af136, type: 3}
       propertyPath: m_Name
@@ -1050,6 +1086,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 66860095}
     m_Modifications:
+    - target: {fileID: 5664003055863941045, guid: ee21998f11acbec418dff52eb5ecfde4, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6168357766534588000, guid: ee21998f11acbec418dff52eb5ecfde4, type: 3}
       propertyPath: m_Name
       value: Street_Lamp (1)
@@ -1160,6 +1200,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c3c1fe45282b20e48a7d4f6032f3c124, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c3c1fe45282b20e48a7d4f6032f3c124, type: 3}
       propertyPath: m_Name
       value: Bank_01 (1)
@@ -1226,6 +1270,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ea5299bccb457e5499ab398e850af136, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ea5299bccb457e5499ab398e850af136, type: 3}
       propertyPath: m_Name
       value: Fence (1)
@@ -1248,6 +1296,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 66860095}
     m_Modifications:
+    - target: {fileID: 5664003055863941045, guid: ee21998f11acbec418dff52eb5ecfde4, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6168357766534588000, guid: ee21998f11acbec418dff52eb5ecfde4, type: 3}
       propertyPath: m_Name
       value: Street_Lamp (2)
@@ -1357,6 +1409,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 7e21ce70035bc6e4f89e54d244ee1cd0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 7e21ce70035bc6e4f89e54d244ee1cd0, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7e21ce70035bc6e4f89e54d244ee1cd0, type: 3}
       propertyPath: m_Name
@@ -1595,6 +1651,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d560252d43f89104b8eb0cdd16221d6b, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d560252d43f89104b8eb0cdd16221d6b, type: 3}
       propertyPath: m_Name
       value: Vooden_Barrel (3)
@@ -1722,14 +1782,14 @@ LightProbeGroup:
   - {x: -17.683533, y: 1, z: 29.385063}
   - {x: -17.683533, y: -1, z: 31.385063}
   - {x: -17.683533, y: -1, z: 29.385063}
-  - {x: 2, y: 1, z: 1}
-  - {x: 2, y: 1, z: -1}
-  - {x: 2, y: -1, z: 1}
-  - {x: 2, y: -1, z: -1}
-  - {x: -2, y: 1, z: 1}
-  - {x: -2, y: 1, z: -1}
-  - {x: -2, y: -1, z: 1}
-  - {x: -2, y: -1, z: -1}
+  - {x: 2, y: 1.8983665, z: -2.2479477}
+  - {x: 2, y: 1.8983665, z: -4.2479477}
+  - {x: 2, y: -0.10163355, z: -2.2479477}
+  - {x: 2, y: -0.10163355, z: -4.2479477}
+  - {x: -2, y: 1.8983665, z: -2.2479477}
+  - {x: -2, y: 1.8983665, z: -4.2479477}
+  - {x: -2, y: -0.10163355, z: -2.2479477}
+  - {x: -2, y: -0.10163355, z: -4.2479477}
   - {x: 2, y: 1, z: 5.0053787}
   - {x: 2, y: 1, z: 3.0053787}
   - {x: 2, y: -1, z: 5.0053787}
@@ -1786,6 +1846,14 @@ LightProbeGroup:
   - {x: -10.128315, y: 1, z: 19.966492}
   - {x: -10.128315, y: -1, z: 21.966492}
   - {x: -10.128315, y: -1, z: 19.966492}
+  - {x: 2, y: -1, z: 1}
+  - {x: 2, y: 1, z: -1}
+  - {x: 2, y: 1, z: 1}
+  - {x: 2, y: -1, z: -1}
+  - {x: -2, y: 1, z: 1}
+  - {x: -2, y: -1, z: 1}
+  - {x: -2, y: 1, z: -1}
+  - {x: -2, y: -1, z: -1}
   m_Dering: 1
 --- !u!4 &1413864761
 Transform:
@@ -1947,6 +2015,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d995b826105a52a44aa3f2de5602705a, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d995b826105a52a44aa3f2de5602705a, type: 3}
       propertyPath: m_Name
       value: Bank_02
@@ -2078,6 +2150,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 2.71
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3c462c0a1c72f55429c812454ce02d27, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3c462c0a1c72f55429c812454ce02d27, type: 3}
       propertyPath: m_Name
       value: Wood_Car
@@ -2144,6 +2220,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c8c72a4430ea72949981c541f489d45c, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c8c72a4430ea72949981c541f489d45c, type: 3}
       propertyPath: m_Name
       value: Tree_03
@@ -2166,6 +2246,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 66860095}
     m_Modifications:
+    - target: {fileID: 5664003055863941045, guid: ee21998f11acbec418dff52eb5ecfde4, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6168357766534588000, guid: ee21998f11acbec418dff52eb5ecfde4, type: 3}
       propertyPath: m_Name
       value: Street_Lamp
@@ -2276,6 +2360,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ac439c7a8567d07469c159f147f2e34e, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ac439c7a8567d07469c159f147f2e34e, type: 3}
       propertyPath: m_Name
       value: Bushes_02 (1)
@@ -2341,6 +2429,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: fbb754b1c3f53e44f86c0dfb7f33ac7a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fbb754b1c3f53e44f86c0dfb7f33ac7a, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fbb754b1c3f53e44f86c0dfb7f33ac7a, type: 3}
       propertyPath: m_Name
@@ -2501,6 +2593,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 6.456
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d560252d43f89104b8eb0cdd16221d6b, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d560252d43f89104b8eb0cdd16221d6b, type: 3}
       propertyPath: m_Name
       value: Vooden_Barrel
@@ -2579,6 +2675,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ac439c7a8567d07469c159f147f2e34e, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ac439c7a8567d07469c159f147f2e34e, type: 3}
       propertyPath: m_Name
       value: Bushes_02
@@ -2644,6 +2744,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: fb308743c41c55b4ead555ce1b78f260, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.752
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fb308743c41c55b4ead555ce1b78f260, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fb308743c41c55b4ead555ce1b78f260, type: 3}
       propertyPath: m_Name
@@ -2761,6 +2865,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 66860095}
     m_Modifications:
+    - target: {fileID: 1011916255112624707, guid: 6afd93558491a644aa321f16633b1586, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1516569621904350102, guid: 6afd93558491a644aa321f16633b1586, type: 3}
       propertyPath: m_Name
       value: House_07
@@ -2871,6 +2979,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: dbecf46c684fb9844bdc9b5453bd5606, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dbecf46c684fb9844bdc9b5453bd5606, type: 3}
       propertyPath: m_Name
       value: Tractor_Red
@@ -2936,6 +3048,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: c3c1fe45282b20e48a7d4f6032f3c124, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c3c1fe45282b20e48a7d4f6032f3c124, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c3c1fe45282b20e48a7d4f6032f3c124, type: 3}
       propertyPath: m_Name
